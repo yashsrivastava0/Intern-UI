@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>Responsive Widgets</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-gray-800 text-white h-screen flex items-center justify-center">
+    <div id="root" class="w-full max-w-6xl mx-auto p-4"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [activeTab, setActiveTab] = useState('about');
+            const [images, setImages] = useState([
+                "https://placehold.co/100x100",
+                "https://placehold.co/100x100"
+            ]);
+
+            const addImage = () => {
+                setImages([...images, "https://placehold.co/100x100"]);
+            };
+
+            return (
+                <div className="flex w-full h-full">
+                    <div className="w-1/2"></div>
+                    <div className="w-1/2 space-y-4">
+                        <div className="bg-gray-700 p-4 rounded-lg shadow-lg relative">
+                            <div className="absolute top-2 left-2">
+                                <i className="fas fa-question-circle text-gray-400"></i>
+                            </div>
+                            <div className="flex space-x-4 mb-4">
+                                <button 
+                                    className={`px-4 py-2 rounded ${activeTab === 'about' ? 'bg-black' : 'bg-gray-600'}`} 
+                                    onClick={() => setActiveTab('about')}
+                                >
+                                    About Me
+                                </button>
+                                <button 
+                                    className={`px-4 py-2 rounded ${activeTab === 'experiences' ? 'bg-black' : 'bg-gray-600'}`} 
+                                    onClick={() => setActiveTab('experiences')}
+                                >
+                                    Experiences
+                                </button>
+                                <button 
+                                    className={`px-4 py-2 rounded ${activeTab === 'recommended' ? 'bg-black' : 'bg-gray-600'}`} 
+                                    onClick={() => setActiveTab('recommended')}
+                                >
+                                    Recommended
+                                </button>
+                            </div>
+                            <div className="text-gray-300">
+                                <p>Hello! I’m Dave, your sales rep here from Salesforce. I’ve been working at this awesome company for 3 years now.</p>
+                                <p>I was born and raised in Albany, NY & have been living in Santa Carla for the past 10 years my wife Tiffany and my 4 year old twin daughters- Emma and Ella. Both of them are just starting school, so my calendar is usually blocked between 9–10 AM. This is a...</p>
+                            </div>
+                        </div>
+                        <div className="bg-gray-700 p-4 rounded-lg shadow-lg relative">
+                            <div className="absolute top-2 left-2">
+                                <i className="fas fa-question-circle text-gray-400"></i>
+                            </div>
+                            <div className="flex justify-between items-center mb-4">
+                                <div className="flex items-center space-x-2">
+                                    <i className="fas fa-th-large"></i>
+                                    <span>Gallery</span>
+                                </div>
+                                <button 
+                                    className="bg-gray-600 px-4 py-2 rounded flex items-center space-x-2"
+                                    onClick={addImage}
+                                >
+                                    <i className="fas fa-plus"></i>
+                                    <span>ADD IMAGE</span>
+                                </button>
+                            </div>
+                            <div className="flex space-x-4">
+                                {images.map((src, index) => (
+                                    <div key={index} className="w-1/3">
+                                        <img src={src} alt={`Placeholder image ${index + 1}`} className="rounded-lg" />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
